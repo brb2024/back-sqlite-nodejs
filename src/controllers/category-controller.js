@@ -57,3 +57,22 @@ export async function modificarCategoria (req, res) {
     res.status(500).json({ error: 'Error al agregar la categoria', description: error.message })
   }
 }
+
+// Funcion para borrar categoria
+export async function borrarCategoria (req, res) {
+  const { id } = req.params
+
+  try {
+    const database = await db.getDb()
+    const result = await database.run('DELETE FROM categorias WHERE id = ?', id)
+
+    if (result.changes === 0) {
+      res.status(404).json({ message: 'Categoria no encontrada' })
+    } else {
+      res.json({ message: 'Categoria eliminada' })
+    }
+  } catch (error) {
+    console.error(`Error al modificar categoria: ${error}`)
+    res.status(500).json({ error: 'Error al modificar categoria', description: error.message })
+  }
+}

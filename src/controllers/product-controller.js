@@ -56,3 +56,22 @@ export async function modificarProducto (req, res) {
     res.status(500).json({ error: 'Error al agregar el producto', description: error.message })
   }
 }
+
+// Funcion para borrar producto
+export async function borrarProducto (req, res) {
+  const { id } = req.params
+
+  try {
+    const database = await db.getDb()
+    const result = await database.run('DELETE FROM productos WHERE id = ?', id)
+
+    if (result.changes === 0) {
+      res.status(404).json({ message: 'Producto no encontrado' })
+    } else {
+      res.json({ message: 'Producto eliminado' })
+    }
+  } catch (error) {
+    console.error(`Error al borrar el producto: ${error}`)
+    res.status(500).json({ error: 'Error al borrar el producto', description: error.message })
+  }
+}
