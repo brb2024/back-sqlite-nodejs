@@ -1,5 +1,5 @@
 import express from 'express'
-import { obtenerCategorias, obtenerCategoria, agregarCategoria } from '../controllers/category-controller.js'
+import { obtenerCategorias, obtenerCategoria, agregarCategoria, modificarCategoria } from '../controllers/category-controller.js'
 
 // Crear un router
 const router = express.Router()
@@ -12,5 +12,8 @@ router.get('/:id', obtenerCategoria)
 
 // Ruta para agregar categoria
 router.post('/', agregarCategoria)
+
+// Ruta para modificar categoria
+router.put('/:id', modificarCategoria)
 
 export default router

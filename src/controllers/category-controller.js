@@ -41,3 +41,19 @@ export async function agregarCategoria (req, res) {
     res.status(500).json({ error: 'Error al agregar categoria', description: error.message })
   }
 }
+
+// Funcion para modificar categoria
+export async function modificarCategoria (req, res) {
+  const { id } = req.params
+  const { descripcion } = req.body
+
+  try {
+    const database = await db.getDb()
+    await database.run('PRAGMA foreign_keys = ON')
+    await database.run('UPDATE categorias SET descripcion = ?  WHERE id = ?', [descripcion, id])
+    res.json({ message: 'Categoria modificada' })
+  } catch (error) {
+    console.error(`Error al modificar categoria: ${error}`)
+    res.status(500).json({ error: 'Error al agregar la categoria', description: error.message })
+  }
+}
