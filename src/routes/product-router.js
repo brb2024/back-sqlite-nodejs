@@ -1,5 +1,5 @@
 import express from 'express'
-import { obtenerProductos, agregarProducto, obtenerProducto } from '../controllers/product-controller.js'
+import { obtenerProductos, agregarProducto, obtenerProducto, modificarProducto } from '../controllers/product-controller.js'
 
 // Crear un router
 const router = express.Router()
@@ -12,5 +12,8 @@ router.get('/:id', obtenerProducto)
 
 // Ruta para agregar un producto
 router.post('/', agregarProducto)
+
+// Ruta para modificar producto
+router.put('/:id', modificarProducto)
 
 export default router

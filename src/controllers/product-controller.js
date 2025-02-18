@@ -40,3 +40,19 @@ export async function agregarProducto (req, res) {
     res.status(500).json({ error: 'Error al agregar el producto', description: error.message })
   }
 }
+
+// Funcion para modificar producto
+export async function modificarProducto (req, res) {
+  const { id } = req.params
+  const { nombre, precio, idCategoria } = req.body
+
+  try {
+    const database = await db.getDb()
+    await database.run('PRAGMA foreign_keys = ON')
+    await database.run('UPDATE productos SET nombre = ?, precio = ?, id_categoria = ? WHERE id = ?', [nombre, precio, idCategoria, id])
+    res.json({ message: 'Producto modificado' })
+  } catch (error) {
+    console.error(`Error al modificar el producto: ${error}`)
+    res.status(500).json({ error: 'Error al agregar el producto', description: error.message })
+  }
+}
