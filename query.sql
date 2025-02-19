@@ -19,6 +19,10 @@ CREATE TABLE productos (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   nombre TEXT NOT NULL,
   precio REAL NOT NULL,
-  id_categoria INTEGER NOT NULL,
+  id_categoria INTEGER DEFAULT 1000,
   CONSTRAINT fk_categoria FOREIGN KEY (id_categoria) REFERENCES categorias (id)
+  ON UPDATE CASCADE
+  ON DELETE SET DEFAULT
 );
+
+PRAGMA foreign_keys = ON

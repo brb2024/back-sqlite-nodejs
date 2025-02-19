@@ -33,6 +33,7 @@ export async function agregarProducto (req, res) {
 
   try {
     const database = await db.getDb()
+    await database.run('PRAGMA foreign_keys = ON')
     await database.run('INSERT INTO productos (nombre, precio, id_categoria) VALUES (?, ?, ?)', [producto.nombre, producto.precio, producto.idCategoria])
     res.json({ message: 'Producto agregado' })
   } catch (error) {
